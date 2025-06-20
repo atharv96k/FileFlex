@@ -1,12 +1,57 @@
-# React + Vite
+ # FileFlex
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+FileFlex is a free, privacy-focused web app for converting and managing PDF, Word, and image files. No registration required.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Image to PDF conversion
+- PDF to Image extraction
+- PDF to Word conversion
+- Word to PDF conversion
+- 100% free, no sign-up
+- Secure & privacy-friendly
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
+
+- Node.js (v18+ recommended)
+- npm
+
+### Installation
+
+```sh
+npm install
+```
+
+### Development
+
+Start the frontend:
+
+```sh
+npm run dev
+```
+
+Start the backend (in `server/`):
+
+```sh
+cd server
+npm install
+node index.js
+```
+
+Visit [http://localhost:5173](http://localhost:5173) for the frontend and [http://localhost:5000](http://localhost:5000) for the backend API.
+
+## Folder Structure
+
+- `src/` — React frontend code
+- `server/` — Express backend for file uploads
+- `public/` — Static assets
+
+## License
+
+MIT
+
+---
+
+Made with ❤️ by the One.
