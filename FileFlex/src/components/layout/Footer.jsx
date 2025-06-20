@@ -1,6 +1,6 @@
 import React from 'react';
 import { FileText } from 'lucide-react';
-
+import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     <footer className="bg-gray-800 text-white py-12">
@@ -16,7 +16,7 @@ const Footer = () => {
             Making PDF management simple and accessible for everyone
           </p>
           <div className="flex justify-center space-x-6 text-sm text-gray-400">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+            <Link to="/privacypolicy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
             <a href="#" className="hover:text-white transition-colors">Support</a>
           </div>

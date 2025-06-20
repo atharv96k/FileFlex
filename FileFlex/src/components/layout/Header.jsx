@@ -13,7 +13,7 @@ const Header = () => {
             <div className="bg-gradient-to-r from-red-500 to-blue-500 p-2 rounded-lg">
               <FileText className="w-6 h-6 text-white" />
             </div>
-            <a href="/"className="text-xl font-bold text-gray-800">FileFlex</a>
+            <Link to="/"className="text-xl font-bold text-gray-800">FileFlex</Link>
           </div>
 
           {/* Desktop Navigation */}
