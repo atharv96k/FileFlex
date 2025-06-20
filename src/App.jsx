@@ -2,14 +2,14 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import About from './pages/About';
-import PrivacyPolicy from './pages/PrivacyPolicy'; // Import the component
+import PrivacyPolicy from './pages/PrivacyPolicy'; 
+import PrivacyPolicy from './pages/TermsOfService'; 
 import Contact from './pages/Contact';
 import ScrollToTop from './components/layout/ScrollToTop';
 import ImageToPdf from './components/tools/ImageToPdf';
 import PdfToImage from './components/tools/PdfToImage';
 import PdfToWord from './components/tools/PdfToWord';
 import WordToPdf from './components/tools/WordToPdf';
-// Import other tool pages as needed
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
         <Route path="/about" element={<About />} /> 
         <Route path="/contact" element={<Contact />} /> 
         <Route path="/privacypolicy" element={<PrivacyPolicy />} /> 
+        <Route path="/termsofservice" element={<TermsOfService />} /> 
       </Routes>
     </Router>
   );
