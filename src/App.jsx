@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import About from './pages/About';
 import PrivacyPolicy from './pages/PrivacyPolicy'; 
-import PrivacyPolicy from './pages/TermsOfService'; 
+import TermsOfService from './pages/TermsOfService'; 
+import Support from './pages/Support'; 
 import Contact from './pages/Contact';
 import ScrollToTop from './components/layout/ScrollToTop';
 import ImageToPdf from './components/tools/ImageToPdf';
@@ -25,6 +26,7 @@ function App() {
         <Route path="/contact" element={<Contact />} /> 
         <Route path="/privacypolicy" element={<PrivacyPolicy />} /> 
         <Route path="/termsofservice" element={<TermsOfService />} /> 
+        <Route path="/support" element={<Support />} /> 
       </Routes>
     </Router>
   );

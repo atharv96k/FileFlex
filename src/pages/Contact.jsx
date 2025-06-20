@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
+import { EnvelopeIcon } from '@heroicons/react/24/solid';
+import { ChatBubbleLeftRightIcon, FaceSmileIcon } from '@heroicons/react/24/solid';
 
 const Contact = () => {
   const [form, setForm] = useState({
@@ -91,17 +93,34 @@ const Contact = () => {
             )}
             <div className="mt-8">
               <h2 className="text-2xl font-semibold text-gray-800 mb-2">Email</h2>
-              <p className="text-gray-700 mb-4">
-                <a href="mailto:support@fileflex.com" className="text-blue-600 underline">
-                  support@fileflex.com
+              <p className="text-gray-700 mb-4 flex items-center space-x-2">
+                <EnvelopeIcon className="w-5 h-5 text-blue-600" />
+                <a href="mailto:atharv4prof@gmail.com" className="text-blue-600 underline">
+                  atharv4prof@gmail.com
                 </a>
               </p>
               <h2 className="text-2xl font-semibold text-gray-800 mb-2">Social Media</h2>
-              <p className="text-gray-700">
-                Follow us for updates:
-                <br />
-                <a href="https://twitter.com/fileflex" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline mr-4">Twitter</a>
-                <a href="https://facebook.com/fileflex" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">Facebook</a>
+              <p className="text-gray-700 flex items-center space-x-4">
+                <span>Follow us for updates:</span>
+                <a
+                  href="https://twitter.com/fileflex"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 transition flex items-center"
+                  aria-label="Twitter"
+                ><ChatBubbleLeftRightIcon className="w-5 h-5 mr-1" />
+                  Twitter
+                </a>
+                <a
+                  href="https://facebook.com/fileflex"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 transition flex items-center"
+                  aria-label="Facebook"
+                >
+                  <FaceSmileIcon className="w-5 h-5 mr-1" />
+                  Facebook
+                </a>
               </p>
             </div>
           </div>
