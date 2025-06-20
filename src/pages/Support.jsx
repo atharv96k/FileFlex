@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
-
+import { Link } from 'react-router-dom';
 const Support = () => (
   <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-blue-50">
     <Header />
@@ -18,7 +18,7 @@ const Support = () => (
           Email us at <a href="mailto:support@fileflex.com" className="text-blue-600 underline">atharv4prof@gmail.com</a>
         </p>
         <p className="text-gray-700">
-          Or use our <a href="/contact" className="text-blue-600 underline hover:text-blue-800">Contact</a> page to send us a message directly.
+          Or use our <Link to="/contact" className="text-blue-600 underline hover:text-blue-800">Contact</Link> page to send us a message directly.
         </p>
       </div>
       <div>
