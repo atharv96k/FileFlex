@@ -29,7 +29,7 @@ const InstaDownloader = () => {
   return (
     <>
     <Header />
-    <div className="min-h-screen bg-gradient-to-br from-pink-100 to-yellow-100 flex flex-col items-center justify-center py-12">
+    <div className="bg-gradient-to-br from-pink-100 to-yellow-100 flex flex-col items-center justify-center min-h-[80vh] py-6 sm:py-8 md:py-12">
       <div className="bg-white rounded-xl shadow-lg p-8 max-w-lg w-full">
         <div className="flex flex-col items-center mb-6">
           <span className="bg-gradient-to-r from-pink-500 to-yellow-500 p-4 rounded-full shadow-lg mb-2">
