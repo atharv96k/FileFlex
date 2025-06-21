@@ -1,4 +1,4 @@
-import { FileImage, FileText, Image, Upload } from 'lucide-react';
+import { FileImage, FileText, Image, Upload, Video, Instagram } from 'lucide-react';
 
 export const toolsData = [
   {
@@ -8,14 +8,6 @@ export const toolsData = [
     icon: FileImage,
     gradient: 'from-red-500 to-pink-500',
     route: '/image-to-pdf'
-  },
-  {
-    id: 'pdf-to-image', 
-    title: 'PDF to Image',
-    description: 'Extract images from PDF files or convert PDF pages to JPG/PNG',
-    icon: Image,
-    gradient: 'from-blue-500 to-cyan-500',
-    route: '/pdf-to-image'
   },
   {
     id: 'pdf-to-word',
@@ -32,5 +24,13 @@ export const toolsData = [
     icon: Upload,
     gradient: 'from-purple-500 to-indigo-500',
     route: '/word-to-pdf'
+  },
+  {
+    id: 'insta-reels-downloader',
+    title: 'Insta Reels Downloader',
+    description: 'Download Instagram Reels videos quickly and easily.',
+    icon: Instagram, // Use Instagram icon
+    gradient: 'from-pink-500 to-yellow-500',
+    route: '/insta-reels-downloader'
   }
 ];

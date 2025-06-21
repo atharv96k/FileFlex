@@ -8,9 +8,9 @@ import Support from './pages/Support';
 import Contact from './pages/Contact';
 import ScrollToTop from './components/layout/ScrollToTop';
 import ImageToPdf from './components/tools/ImageToPdf';
-import PdfToImage from './components/tools/PdfToImage';
 import PdfToWord from './components/tools/PdfToWord';
 import WordToPdf from './components/tools/WordToPdf';
+import InstaDownloader from './components/tools/InstaDownloader';
 
 function App() {
   return (
@@ -19,9 +19,9 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/image-to-pdf" element={<ImageToPdf />} />
-        <Route path="/pdf-to-image" element={<PdfToImage />} />
         <Route path="/pdf-to-word" element={<PdfToWord />} />
         <Route path="/word-to-pdf" element={<WordToPdf />} />
+        <Route path="/insta-reels-downloader" element={<InstaDownloader />} />
         <Route path="/about" element={<About />} /> 
         <Route path="/contact" element={<Contact />} /> 
         <Route path="/privacypolicy" element={<PrivacyPolicy />} /> 

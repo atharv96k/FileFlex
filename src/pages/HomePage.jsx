@@ -13,8 +13,8 @@ const HomePage = () => {
     case 'image-to-pdf':
       navigate('/image-to-pdf');
       break;
-    case 'pdf-to-image':
-      navigate('/pdf-to-image');
+    case 'insta-reels-downloader':
+      navigate('/insta-reels-downloader');
       break;
     case 'pdf-to-word':
       navigate('/pdf-to-word');
