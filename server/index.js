@@ -4,6 +4,7 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 const { PDFDocument } = require('pdf-lib');
+const { fromPath } = require("pdf2pic");
 
 
 const app = express();
@@ -46,6 +47,46 @@ console.log('Received files:', req.files);
     res.send(Buffer.from(pdfBytes));
   } catch (err) {
     res.status(500).json({ error: 'Failed to convert images to PDF' });
+  }
+});
+app.post('/api/pdf-to-image', upload.single('pdf'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No PDF uploaded' });
+    }
+
+    const pdfPath = req.file.path;
+    const outputImages = [];
+
+    const options = {
+      density: 150,
+      saveFilename: "page",
+      savePath: "./uploads", // Temporary save path
+      format: "png",
+      width: 1024,
+      height: 1448,
+    };
+
+    const storeAsImage = fromPath(pdfPath, options);
+
+    // Get number of pages
+    const numPages = await storeAsImage.info().then(info => info.numpages);
+
+    for (let i = 1; i <= numPages; i++) {
+      const page = await storeAsImage(i);
+      const imgBuffer = fs.readFileSync(page.path);
+      outputImages.push({
+        filename: `page-${i}.png`,
+        buffer: imgBuffer.toString('base64'),
+      });
+      fs.unlinkSync(page.path); // Clean up
+    }
+
+    fs.unlinkSync(pdfPath); // Clean up uploaded PDF
+
+    res.json({ images: outputImages });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to convert PDF to images' });
   }
 });
 app.get('/', (req, res) => {

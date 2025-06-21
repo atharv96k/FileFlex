@@ -6,11 +6,14 @@ const PdfToImage = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [message, setMessage] = useState('');
     const [dragActive, setDragActive] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [images, setImages] = useState([]);
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         setSelectedFile(file);
         setMessage('');
+        setImages([]);
     };
 
     const handleDragOver = (e) => {
@@ -32,17 +35,43 @@ const PdfToImage = () => {
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
             setSelectedFile(e.dataTransfer.files[0]);
             setMessage('');
+            setImages([]);
         }
     };
 
-    const handleConvert = (e) => {
+    const handleConvert = async (e) => {
         e.preventDefault();
+        setMessage('');
+        setImages([]);
         if (!selectedFile) {
             setMessage('Please select a PDF file to convert.');
             return;
         }
-        // Simulate conversion
-        setMessage('Conversion successful! (Demo only)');
+        setLoading(true);
+        const formData = new FormData();
+        formData.append('pdf', selectedFile);
+
+        try {
+            const response = await fetch('https://fileflex.onrender.com/api/pdf-to-image', {
+                method: 'POST',
+                body: formData,
+            });
+            if (!response.ok) {
+                setMessage('Failed to convert PDF to images.');
+                setLoading(false);
+                return;
+            }
+            const data = await response.json();
+            if (data.images && data.images.length > 0) {
+                setImages(data.images);
+                setMessage('Conversion successful!');
+            } else {
+                setMessage('No images returned from server.');
+            }
+        } catch (error) {
+            setMessage('An error occurred during conversion.');
+        }
+        setLoading(false);
     };
 
     return (
@@ -80,13 +109,43 @@ const PdfToImage = () => {
                     <button
                         type="submit"
                         className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+                        disabled={loading}
                     >
-                        Convert to Images
+                        {loading ? 'Converting...' : 'Convert to Images'}
                     </button>
                 </form>
+                {loading && (
+                    <div className="mt-4 text-center">
+                        <span className="animate-spin inline-block mr-2">&#9696;</span>
+                        <span>Converting, please wait...</span>
+                    </div>
+                )}
                 {message && (
                     <div className="mt-4 text-center text-green-600 font-semibold">
                         {message}
+                    </div>
+                )}
+                {images.length > 0 && (
+                    <div className="mt-8">
+                        <h2 className="text-xl font-semibold mb-4 text-center">Converted Images</h2>
+                        <div className="flex flex-col gap-4 items-center">
+                            {images.map((img, idx) => (
+                                <div key={idx} className="flex flex-col items-center">
+                                    <img
+                                        src={`data:image/png;base64,${img.buffer}`}
+                                        alt={`Page ${idx + 1}`}
+                                        className="max-w-full max-h-96 border rounded shadow"
+                                    />
+                                    <a
+                                        href={`data:image/png;base64,${img.buffer}`}
+                                        download={img.filename}
+                                        className="mt-2 text-blue-600 underline"
+                                    >
+                                        Download Page {idx + 1}
+                                    </a>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 )}
 
