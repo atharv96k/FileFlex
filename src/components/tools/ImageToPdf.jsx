@@ -7,6 +7,7 @@ const ImageToPdf = () => {
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [message, setMessage] = useState('');
     const [dragActive, setDragActive] = useState(false);
+    const [loading, setLoading] = useState(false); // Add loading state
 
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files);
@@ -36,46 +37,49 @@ const ImageToPdf = () => {
         }
     };
 
-const handleConvert = async (e) => {
-    e.preventDefault();
-    setMessage('');
-    if (!selectedFiles.length) {
-        setMessage('Please select one or more images to convert.');
-        return;
-    }
-
-    const formData = new FormData();
-    selectedFiles.forEach(file => formData.append('images', file));
-
-    try {
-        const response = await fetch('http://localhost:5000/api/image-to-pdf', {
-            method: 'POST',
-            body: formData,
-        });
-
-        if (!response.ok) {
-            setMessage('Failed to convert images to PDF.');
+    const handleConvert = async (e) => {
+        e.preventDefault();
+        setMessage('');
+        if (!selectedFiles.length) {
+            setMessage('Please select one or more images to convert.');
             return;
         }
-const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'ConvertedByAtharv.pdf';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        window.URL.revokeObjectURL(url);
-        setMessage('Conversion successful! Your PDF is downloading.');
-    } catch (error) {
-        setMessage('An error occurred during conversion.');
-    }
-};
+
+        const formData = new FormData();
+        selectedFiles.forEach(file => formData.append('images', file));
+
+        setLoading(true); // Start loading
+        try {
+            const response = await fetch('https://fileflex.onrender.com/api/image-to-pdf', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                setMessage('Failed to convert images to PDF.');
+                setLoading(false); // Stop loading on error
+                return;
+            }
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ConvertedByAtharv.pdf';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+            setMessage('Conversion successful! Your PDF is downloading.');
+        } catch (error) {
+            setMessage('An error occurred during conversion.');
+        }
+        setLoading(false); // Stop loading after process
+    };
     return (
         <>
             <Header />
             <div className="max-w-xl mx-auto mt-12 bg-white p-8 rounded shadow">
-               
+
                 <h1 className="text-2xl font-bold mb-4 text-center">Image to PDF Converter</h1>
                 <p className="mb-6 text-gray-600 text-center">
                     Upload your images (JPG, PNG, BMP, GIF) and convert them into a single PDF document instantly.
@@ -110,10 +114,17 @@ const blob = await response.blob();
                     <button
                         type="submit"
                         className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+                        disabled={loading} // Disable button while loading
                     >
-                        Convert to PDF
+                        {loading ? 'Converting...' : 'Convert to PDF'}
                     </button>
                 </form>
+                {loading && (
+                    <div className="mt-4 text-center">
+                        <span className="animate-spin inline-block mr-2">&#9696;</span>
+                        <span>Converting, please wait...</span>
+                    </div>
+                )}
                 {message && (
                     <div className="mt-4 text-center text-red-600 font-semibold">
                         {message}
