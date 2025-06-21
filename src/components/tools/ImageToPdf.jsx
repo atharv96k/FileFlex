@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import Header from '../layout/Header';
+import Footer from '../layout/Footer';
 
 const ImageToPdf = () => {
     const fileInputRef = useRef(null);
@@ -35,16 +36,41 @@ const ImageToPdf = () => {
         }
     };
 
-    const handleConvert = (e) => {
-        e.preventDefault();
-        if (!selectedFiles.length) {
-            setMessage('Please select one or more images to convert.');
+const handleConvert = async (e) => {
+    e.preventDefault();
+    setMessage('');
+    if (!selectedFiles.length) {
+        setMessage('Please select one or more images to convert.');
+        return;
+    }
+
+    const formData = new FormData();
+    selectedFiles.forEach(file => formData.append('images', file));
+
+    try {
+        const response = await fetch('http://localhost:5000/api/image-to-pdf', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (!response.ok) {
+            setMessage('Failed to convert images to PDF.');
             return;
         }
-        // Simulate conversion
-        setMessage('Conversion successful! (Demo only)');
-    };
-
+const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'ConvertedByAtharv.pdf';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+        setMessage('Conversion successful! Your PDF is downloading.');
+    } catch (error) {
+        setMessage('An error occurred during conversion.');
+    }
+};
     return (
         <>
             <Header />
@@ -89,7 +115,7 @@ const ImageToPdf = () => {
                     </button>
                 </form>
                 {message && (
-                    <div className="mt-4 text-center text-green-600 font-semibold">
+                    <div className="mt-4 text-center text-red-600 font-semibold">
                         {message}
                     </div>
                 )}
@@ -118,6 +144,7 @@ const ImageToPdf = () => {
                     </p>
                 </div>
             </div>
+            <Footer />
         </>
     );
 };
